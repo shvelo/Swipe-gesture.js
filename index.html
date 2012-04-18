@@ -35,11 +35,61 @@
 
 <h2>handle swipe gestures on touch devices (also supports mouse click)</h2>
 <div id="demo">Swipe here</div>
-<p>Usage: <br><code>swipe(element,options)</code>  - activate swipe on specified element <br><code>swipe(options);</code> - activate swipe on document <br></p>
+<p>Usage: <br>
+<code>swipe(element,options)</code>  - activate swipe on specified element <br>
+<code>swipe(options);</code> - activate swipe on document <br></p>
 
-<p>Options:  <br><code>minDistance</code> - <code>int</code> - minimum distance between touch start and end positions <br><code>onSwipeLeft</code> - <code>function</code> - handler for <code>swipe left</code> <br><code>onSwipeRight</code>- <code>function</code> - handler for <code>swipe right</code> <br><code>onSwipeUp</code> - <code>function</code> - handler for <code>swipe up</code> <br><code>onSwipeDown</code> - <code>function</code> - handler for <code>swipe down</code></p>
-      </section>
-      
+<p>Options:<br>
+<code>minDistance</code> - <code>int</code> - minimum pixel distance between touch start and end positions <br>
+<code>onSwipeLeft</code> - <code>function</code> - handler for <code>swipe left</code> <br>
+<code>onSwipeRight</code>- <code>function</code> - handler for <code>swipe right</code> <br>
+<code>onSwipeUp</code> - <code>function</code> - handler for <code>swipe up</code> <br>
+<code>onSwipeDown</code> - <code>function</code> - handler for <code>swipe down</code></p>
+
+<h2>Example</h2>
+
+<h4>On single element:</h4>
+
+<pre>
+swipe(document.getElementbyId('target',{
+	onSwipeRight: function(){
+		target.innerHTML = 'Right';
+	},
+	onSwipeLeft: function(){
+		target.innerHTML = 'Left';
+	},
+	onSwipeDown: function(){
+		target.innerHTML = 'Down';
+	},
+	onSwipeUp: function(){
+		target.innerHTML = 'Up';
+	},
+	minDistance: 0,
+	unselectable: true
+});
+</pre>
+
+<h4>On document:</h4>
+
+<pre>
+swipe({
+	onSwipeRight: function(){
+		alert('Right');
+	},
+	onSwipeLeft: function(){
+		alert('Left');
+	},
+	onSwipeDown: function(){
+		alert('Down');
+	},
+	onSwipeUp: function(){
+		alert('Up');
+	},
+	minDistance: 0,
+	unselectable: false
+});
+</pre>
+      </section>      
     </div>
 
     <!-- FOOTER  -->
@@ -49,7 +99,6 @@
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-
     <script src="javascripts/swipe.js"></script>
 	<script src="javascripts/main.js"></script>
   </body>
