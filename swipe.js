@@ -90,6 +90,7 @@
 		element.addEventListener('mouseup',swipeEnd);
 		element.addEventListener('touchstart',swipeStart);
 		element.addEventListener('touchend',swipeEnd);
+		if(options.unselectable) element.onselectstart = function() { return false; };
 	};
 	window.swipe = swipe;
 })(window);
