@@ -1,0 +1,26 @@
+
+<!doctype html>
+<title>Swipe test</title>
+<meta name="viewport" content="width=device-width">
+<style>html,body,#el {width:100%; height:100%; padding:0; margin:0}</style>
+<div id="el"></div>
+<script src="swipe.js"></script>
+<script>
+var target = document.getElementById('el');
+target.innerHTML += "init <br>";
+swipe({
+	onSwipeRight: function(){
+		target.innerHTML += 'right <br>';
+	},
+	onSwipeLeft: function(){
+		target.innerHTML += 'left <br>';
+	},
+	onSwipeDown: function(){
+		target.innerHTML += 'down <br>';
+	},
+	onSwipeUp: function(){
+		target.innerHTML += 'up <br>';
+	},
+	minDistance: 0
+});
+</script>
