@@ -1,4 +1,5 @@
 var target = document.getElementById('demo');
+target.onselectstart = function() { return false; };
 swipe(target,{
 	onSwipeRight: function(){
 		target.innerHTML = 'Right';
