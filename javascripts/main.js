@@ -1,5 +1,4 @@
 var target = document.getElementById('demo');
-target.onselectstart = function() { return false; };
 swipe(target,{
 	onSwipeRight: function(){
 		target.innerHTML = 'Right';
@@ -13,5 +12,6 @@ swipe(target,{
 	onSwipeUp: function(){
 		target.innerHTML = 'Up';
 	},
-	minDistance: 0
+	minDistance: 0,
+	unselectable: true
 });
