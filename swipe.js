@@ -1,16 +1,19 @@
-/*
-* Swipe-gesture.js
-* by Nick Shvelidze
+/***
+* Swipe-gesture.js 
 * http://shvelo.github.com/Swipe-gesture.js
+* by Nick Shvelidze
 */
 (function(window) {
+	var isNumber = function(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	};	
 	var swipe = function(first,second){
 		var element, options;
 		if(!first && !second) {
-			element = document;
+			element = document.documentElement;
 			options = {};
 		} else if(!second) {
-			element = document;
+			element = document.documentElement;
 			options = first;
 		} else {
 			element = first;
@@ -19,8 +22,26 @@
 		
 		element.swipe = {startX: 0, startY: 0};
 				
-		if(!options.minDistance)
-			options.minDistance = 20;
+		var minDistance = 20;
+		switch(typeof(options.minDistance)) {
+			case 'int':
+				minDistance = options.minDistance;
+				break;
+			case 'string':
+				if(isNumber(options.minDistance))
+					minDistance =  parseInt(options.minDistance);
+				else if(options.minDistance.charAt(options.minDistance.length - 1) == '%' &&
+						isNumber(options.minDistance.substr(0,options.minDistance.length - 1))) {
+					var percentDistance = parseInt(options.minDistance.substr(0,options.minDistance.length - 1));
+					var diagonal =  Math.sqrt(element.offsetWidth * element.offsetWidth + element.offsetHeight * element.offsetHeight);
+					minDistance = Math.round(diagonal * percentDistance / 100);					
+				} else
+					minDistance = 20;				
+				break;
+			default:
+				minDistance = 20;
+				break;
+		}		
 		
 		if(options.onSwipeRight)
 			element.onSwipeRight = options.onSwipeRight;
@@ -74,14 +95,14 @@
 			var diffX = Math.max(newX,element.swipe.startX) - Math.min(newX,element.swipe.startX);
 			var diffY = Math.max(newY,element.swipe.startY) - Math.min(newY,element.swipe.startY);
 			if(diffX > diffY) {
-				if(newX > element.swipe.startX + options.minDistance)
+				if(newX > element.swipe.startX + minDistance)
 					element.onSwipeRight();
-				else if (newX < element.swipe.startX - options.minDistance)
+				else if (newX < element.swipe.startX - minDistance)
 					element.onSwipeLeft();
 			} else if(diffX < diffY) {
-				if(newY > element.swipe.startY + options.minDistance)
+				if(newY > element.swipe.startY + minDistance)
 					element.onSwipeDown();
-				else if (newY < element.swipe.startY - options.minDistance)
+				else if (newY < element.swipe.startY - minDistance)
 					element.onSwipeUp();
 			}
 		};
